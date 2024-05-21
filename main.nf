@@ -37,6 +37,20 @@ process nanoPlot {
         """
 }
 
+process plagiariseNanoplotReport {
+    label "wftemplate"
+    input:
+        path(report)
+
+    output:
+        path "seahorse_report.html"
+
+    script:
+        """
+        sed 's/NanoPlot reports/Team Big-belly Seahorse Report (totally not the default NanoPlot report)/g' ${report} > "seahorse_report.html"
+        """
+}
+
 process seahorseReport {
     label "wftemplate"
     input:
@@ -198,7 +212,13 @@ workflow {
 
     samples.view()
 
-    nanoPlot(samples)
+    report = nanoPlot(samples)
+
+    report.view()
+
+    plagiarisedReport = plagiariseNanoplotReport(report)
+
+    plagiarisedReport.view()
     
 
     // group back the possible multiple fastqs from the chunking. In
