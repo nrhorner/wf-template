@@ -34,6 +34,21 @@ process getVersions {
 }
 
 
+process nanoPlot {
+    label "wftemplate"
+    input:
+        tuple val(meta), path(reads), path(stats)
+
+    output:
+        path(report)
+
+    script:
+        """
+        workflow-glue run_nanoplot ${stats}
+
+        """
+}
+
 process makeReport {
     label "wftemplate"
     input:
@@ -188,7 +203,7 @@ workflow {
         "per_read_stats": params.wf.per_read_stats,
     ])
 
-    samples.view()
+
 
     // group back the possible multiple fastqs from the chunking. In
     // a "real" workflow this wouldn't be done immediately here and
