@@ -175,35 +175,20 @@ workflow {
     }
 
     def samples
-    if (params.fastq) {
-        samples = fastq_ingress([
-            "input":params.fastq,
-            "sample":params.sample,
-            "sample_sheet":params.sample_sheet,
-            "analyse_unclassified":params.analyse_unclassified,
-            "stats": params.wf.fastcat_stats,
-            "fastcat_extra_args": "",
-            "required_sample_types": [],
-            "watch_path": params.wf.watch_path,
-            "fastq_chunk": params.fastq_chunk,
-            "per_read_stats": params.wf.per_read_stats,
-        ])
-    } else {
-        // if we didn't get a `--fastq`, there must have been a `--bam` (as is codified
-        // by the schema)
-        samples = xam_ingress([
-            "input":params.bam,
-            "sample":params.sample,
-            "sample_sheet":params.sample_sheet,
-            "analyse_unclassified":params.analyse_unclassified,
-            "keep_unaligned": params.wf.keep_unaligned,
-            "stats": params.wf.bamstats,
-            "watch_path": params.wf.watch_path,
-            "return_fastq": params.wf.return_fastq,
-            "fastq_chunk": params.fastq_chunk,
-            "per_read_stats": params.wf.per_read_stats
-        ])
-    }
+    samples = fastq_ingress([
+        "input":params.fastq,
+        "sample":params.sample,
+        "sample_sheet":params.sample_sheet,
+        "analyse_unclassified":params.analyse_unclassified,
+        "stats": params.wf.fastcat_stats,
+        "fastcat_extra_args": "",
+        "required_sample_types": [],
+        "watch_path": params.wf.watch_path,
+        "fastq_chunk": params.fastq_chunk,
+        "per_read_stats": params.wf.per_read_stats,
+    ])
+
+    samples.view()
 
     // group back the possible multiple fastqs from the chunking. In
     // a "real" workflow this wouldn't be done immediately here and
