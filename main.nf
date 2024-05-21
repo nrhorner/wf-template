@@ -54,6 +54,22 @@ process nanoComp {
         """
 }
 
+process output_new {
+    // publish inputs to output directory
+    label "wftemplate"
+    publishDir (
+        params.out_dir,
+        mode: "copy",
+        saveAs: { dirname ? "$dirname/$fname" : fname }
+    )
+    input:
+        tuple path(fname), val(dirname)
+    output:
+        path fname
+    """
+    """
+}
+
 process seahorseReport {
     label "wftemplate"
     input:
