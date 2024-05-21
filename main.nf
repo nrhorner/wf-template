@@ -32,7 +32,7 @@ process nanoPlot {
 
     script:
         """
-        workflow-glue run_nanoplot ${stats}
+        workflow-glue run_nanoplot --meta ${meta} --reads ${reads} --stats ${stats}
 
         """
 }
@@ -198,6 +198,7 @@ workflow {
 
     samples.view()
 
+    nanoPlot(samples)
     
 
     // group back the possible multiple fastqs from the chunking. In
