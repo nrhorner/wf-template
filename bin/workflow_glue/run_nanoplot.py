@@ -15,7 +15,6 @@ def main(args):
     subprocess.run(cmd, shell=True)
 
 
-
 def argparser():
     """Argument parser for entrypoint."""
     parser = wf_parser("nanoplot")
