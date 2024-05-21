@@ -28,7 +28,7 @@ process nanoPlot {
         tuple val(meta), path(reads), path(stats)
 
     output:
-        path(report)
+        path "NanoPlot-report.html"
 
     script:
         """
