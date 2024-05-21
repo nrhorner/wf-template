@@ -21,18 +21,6 @@ include {
 
 OPTIONAL_FILE = file("$projectDir/data/OPTIONAL_FILE")
 
-process getVersions {
-    label "wftemplate"
-    cpus 1
-    output:
-        path "versions.txt"
-    script:
-    """
-    python -c "import pysam; print(f'pysam,{pysam.__version__}')" >> versions.txt
-    fastcat --version | sed 's/^/fastcat,/' >> versions.txt
-    """
-}
-
 
 process nanoPlot {
     label "wftemplate"
@@ -45,36 +33,7 @@ process nanoPlot {
     script:
         """
         workflow-glue run_nanoplot ${stats}
-
         """
-}
-
-process makeReport {
-    label "wftemplate"
-    input:
-        val metadata
-        tuple path(stats, stageAs: "stats_*"), val(no_stats)
-        path client_fields
-        path "versions/*"
-        path "params.json"
-        val wf_version
-    output:
-        path "wf-template-*.html"
-    script:
-        String report_name = "wf-template-report.html"
-        String metadata = new JsonBuilder(metadata).toPrettyString()
-        String stats_args = no_stats ? "" : "--stats $stats"
-        String client_fields_args = client_fields.name == OPTIONAL_FILE.name ? "" : "--client_fields $client_fields"
-    """
-    echo '${metadata}' > metadata.json
-    workflow-glue report $report_name \
-        --versions versions \
-        $stats_args \
-        $client_fields_args \
-        --params params.json \
-        --metadata metadata.json \
-        --wf_version $wf_version
-    """
 }
 
 
@@ -141,7 +100,6 @@ workflow pipeline {
         }
 
         client_fields = params.client_fields && file(params.client_fields).exists() ? file(params.client_fields) : OPTIONAL_FILE
-        software_versions = getVersions()
         workflow_params = getParams()
 
         // get metadata and stats files, keeping them ordered (could do with transpose I suppose)
@@ -153,14 +111,6 @@ workflow pipeline {
         // create a file list of the stats, and signal if its empty or not
         stats = for_report.stats | ifEmpty(OPTIONAL_FILE) | collect | map { [it, it[0] == OPTIONAL_FILE] } 
  
-        report = makeReport(
-            metadata,
-            stats,
-            client_fields,
-            software_versions,
-            workflow_params,
-            workflow.manifest.version
-        )
         
         // replace `null` with path to optional file
         reads
@@ -171,7 +121,6 @@ workflow pipeline {
         | collectIngressResultsInDir
     emit:
         ingress_results = collectIngressResultsInDir.out
-        report
         workflow_params
         // TODO: use something more useful as telemetry
         telemetry = workflow_params
@@ -203,7 +152,9 @@ workflow {
         "per_read_stats": params.wf.per_read_stats,
     ])
 
+    samples.view()
 
+    
 
     // group back the possible multiple fastqs from the chunking. In
     // a "real" workflow this wouldn't be done immediately here and
@@ -230,9 +181,6 @@ workflow {
     pipeline(decorate_samples)
     pipeline.out.ingress_results
         | map { [it, "${params.fastq ? "fastq" : "xam"}_ingress_results"] }
-        | concat (
-            pipeline.out.report.concat(pipeline.out.workflow_params)
-                | map { [it, null] })
         | output
 }
 
