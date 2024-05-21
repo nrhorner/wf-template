@@ -33,7 +33,51 @@ process nanoPlot {
     script:
         """
         workflow-glue run_nanoplot ${stats}
+
         """
+}
+
+process seahorseReport {
+    label "wftemplate"
+    input:
+        tuple val(meta), path(reads), path(stats)
+
+    output:
+        path(report)
+
+    script:
+        """
+        workflow-glue seahorse-report ${stats}
+
+        """
+}
+
+process makeReport {
+    label "wftemplate"
+    input:
+        val metadata
+        tuple path(stats, stageAs: "stats_*"), val(no_stats)
+        path client_fields
+        path "versions/*"
+        path "params.json"
+        val wf_version
+    output:
+        path "wf-template-*.html"
+    script:
+        String report_name = "wf-template-report.html"
+        String metadata = new JsonBuilder(metadata).toPrettyString()
+        String stats_args = no_stats ? "" : "--stats $stats"
+        String client_fields_args = client_fields.name == OPTIONAL_FILE.name ? "" : "--client_fields $client_fields"
+    """
+    echo '${metadata}' > metadata.json
+    workflow-glue report $report_name \
+        --versions versions \
+        $stats_args \
+        $client_fields_args \
+        --params params.json \
+        --metadata metadata.json \
+        --wf_version $wf_version
+    """
 }
 
 
