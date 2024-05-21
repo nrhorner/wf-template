@@ -37,6 +37,23 @@ process nanoPlot {
         """
 }
 
+// example command for nanocomp
+// NanoComp --fastq ../test_data/fastq/test_3prime_5k/3prime.5k.fastq.gz ../test_data/fastq/test_5prime_5k/5prime.5k.fastq.gz --outdir nanocomp-output --names 3prime 5prime
+// needs to be installed via pip install NanoComp 
+process nanoComp {
+    label "wftemplate"
+    input:
+        tuple val(meta), path(reads), path(stats)
+    output:
+        path('nano_comp/NanoComp_number_of_reads.png')
+
+    script:
+        """
+        # run nanocomp
+        NanoComp --fastq ${reads} --outdir nano_comp/
+        """
+}
+
 process seahorseReport {
     label "wftemplate"
     input:
@@ -199,6 +216,13 @@ workflow {
     samples.view()
 
     nanoPlot(samples)
+
+    nanoComp(samples)
+    nanoComp.out.view()
+    nanoComp.out
+        | map { it -> [it, null] }
+        | output_new
+
     
 
     // group back the possible multiple fastqs from the chunking. In
