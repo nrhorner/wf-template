@@ -1,0 +1,6 @@
+[11:09:52 - workflow_glue] Bootstrapping CLI.
+[11:10:10 - matplotlib.font_manager] generated new fontManager
+[11:10:11 - workflow_glue] Starting entrypoint.
+/home/epi2melabs/conda/lib/python3.8/site-packages/ezcharts/components/fastcat.py:233: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.
+  plt = ezc.lineplot(data=df, x=xlab, y=ylab, hue=None)
+[11:10:12 - workflow_glue.Report    ] Report written to wf-template-report.html.

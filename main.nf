@@ -49,6 +49,21 @@ process nanoPlot {
         """
 }
 
+process seahorseReport {
+    label "wftemplate"
+    input:
+        tuple val(meta), path(reads), path(stats)
+
+    output:
+        path(report)
+
+    script:
+        """
+        workflow-glue seahorse-report ${stats}
+
+        """
+}
+
 process makeReport {
     label "wftemplate"
     input:

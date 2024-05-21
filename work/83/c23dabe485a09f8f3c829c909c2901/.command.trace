@@ -1,0 +1,17 @@
+nextflow.trace/v2
+realtime=67
+%cpu=381
+cpu_model=Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz
+rchar=57628
+wchar=1170
+syscr=171
+syscw=46
+read_bytes=0
+write_bytes=0
+%mem=0
+vmem=3904
+rss=1084
+peak_vmem=3904
+peak_rss=1084
+vol_ctxt=8
+inv_ctxt=11

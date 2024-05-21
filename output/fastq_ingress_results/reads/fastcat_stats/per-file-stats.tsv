@@ -1,0 +1,2 @@
+filename	sample_name	n_seqs	n_bases	min_length	max_length	mean_quality
+input_src	reads	1000	497251	413	698	13.42

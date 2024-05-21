@@ -1,0 +1,79 @@
+Unable to find image 'ontresearch/wf-common:sha91cd87900c86f05bf36d8c77b841b8fda5ecf3aa' locally
+sha91cd87900c86f05bf36d8c77b841b8fda5ecf3aa: Pulling from ontresearch/wf-common
+3c67549075b6: Pulling fs layer
+d489cf5ad2c4: Pulling fs layer
+c1b64a68278c: Pulling fs layer
+256fa1c53737: Pulling fs layer
+34226f086296: Pulling fs layer
+ff43f2352ec8: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+ff4ac4a2095a: Pulling fs layer
+331da7bdbba4: Pulling fs layer
+2c731c1365c6: Pulling fs layer
+eb0b2a83f796: Pulling fs layer
+85475926ac9a: Pulling fs layer
+af16d41cf6ac: Pulling fs layer
+26fe82944567: Pulling fs layer
+6fbb9bd95786: Pulling fs layer
+34fcf8060972: Pulling fs layer
+256fa1c53737: Waiting
+34226f086296: Waiting
+ff43f2352ec8: Waiting
+4f4fb700ef54: Waiting
+ff4ac4a2095a: Waiting
+331da7bdbba4: Waiting
+2c731c1365c6: Waiting
+eb0b2a83f796: Waiting
+85475926ac9a: Waiting
+af16d41cf6ac: Waiting
+26fe82944567: Waiting
+6fbb9bd95786: Waiting
+34fcf8060972: Waiting
+c1b64a68278c: Verifying Checksum
+c1b64a68278c: Download complete
+256fa1c53737: Verifying Checksum
+256fa1c53737: Download complete
+34226f086296: Verifying Checksum
+34226f086296: Download complete
+d489cf5ad2c4: Verifying Checksum
+d489cf5ad2c4: Download complete
+ff43f2352ec8: Verifying Checksum
+ff43f2352ec8: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+331da7bdbba4: Verifying Checksum
+331da7bdbba4: Download complete
+2c731c1365c6: Verifying Checksum
+2c731c1365c6: Download complete
+eb0b2a83f796: Verifying Checksum
+eb0b2a83f796: Download complete
+85475926ac9a: Verifying Checksum
+85475926ac9a: Download complete
+ff4ac4a2095a: Verifying Checksum
+ff4ac4a2095a: Download complete
+af16d41cf6ac: Verifying Checksum
+af16d41cf6ac: Download complete
+26fe82944567: Verifying Checksum
+26fe82944567: Download complete
+6fbb9bd95786: Verifying Checksum
+6fbb9bd95786: Download complete
+3c67549075b6: Download complete
+3c67549075b6: Pull complete
+d489cf5ad2c4: Pull complete
+c1b64a68278c: Pull complete
+256fa1c53737: Pull complete
+34226f086296: Pull complete
+ff43f2352ec8: Pull complete
+4f4fb700ef54: Pull complete
+ff4ac4a2095a: Pull complete
+331da7bdbba4: Pull complete
+2c731c1365c6: Pull complete
+eb0b2a83f796: Pull complete
+85475926ac9a: Pull complete
+af16d41cf6ac: Pull complete
+26fe82944567: Pull complete
+6fbb9bd95786: Pull complete
+34fcf8060972: Download complete
+34fcf8060972: Pull complete
+Digest: sha256:37c783b2c3f2c17a3f4cd4613f1aa59e2bd4f71e2a853ab34bdbc12f7446668c
+Status: Image is up to date for ontresearch/wf-common:sha91cd87900c86f05bf36d8c77b841b8fda5ecf3aa
